@@ -1,26 +1,548 @@
 @import "tailwindcss";
 
+/* ========================================
+   ADVANCED CUSTOM PROPERTIES
+======================================= */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --glass-bg: 0 0% 100% / 0.1;
+    --glass-border: 0 0% 100% / 0.2;
+    --glass-blur: 20px;
+    --gradient-primary: 320deg, rgb(244 63 94 / 0.9) 0%, rgb(249 115 22 / 0.9) 100%;
+    --gradient-shimmer: 45deg, rgb(255 255 255 / 0.5) 0%, transparent 50%;
+    --shadow-glow: 0 25px 50px -12px rgb(0 0% 0 / 0.25);
+    --petal-glow: 0 0 20px rgb(255 182 193 / 0.6);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ========================================
+   GLASSMORPHISM UTILITIES
+======================================= */
+.glass {
+    @apply bg-gradient-to-br from-[hsl(var(--glass-bg))] backdrop-blur-[var(--glass-blur)] border border-[hsl(var(--glass-border))] shadow-[var(--shadow-glow)];
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.glass-hover {
+    @apply transition-all duration-500;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.glass-hover:hover {
+    @apply bg-white/20 shadow-[0_35px_60px_-15px_rgb(0_0%_0_/0.3)] scale-[1.02];
+}
+
+/* ========================================
+   SMOOTH SCROLL & ANIMATIONS
+======================================= */
+* {
+    @apply scroll-smooth antialiased;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* ========================================
+   ADVANCED BACKGROUND EFFECTS
+======================================= */
+.bg-magic {
+    background:
+        radial-gradient(circle at 20% 80%, hsl(330deg 80% 60% / 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, hsl(40deg 80% 60% / 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, hsl(300deg 70% 50% / 0.2) 0%, transparent 50%);
+    animation: magicFlow 20s ease-in-out infinite;
+}
+
+@keyframes magicFlow {
+
+    0%,
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    50% {
+        transform: scale(1.05) rotate(180deg);
+    }
+}
+
+/* ========================================
+   FLOATING PARTICLES SYSTEM
+======================================= */
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-100px) scale(1);
+        opacity: 0;
+    }
+}
+
+.particle-heart {
+    animation: floatUp 6s linear infinite;
+    animation-delay: calc(var(--delay, 0s));
+    filter: drop-shadow(0 0 10px currentColor);
+}
+
+.particle-petal {
+    animation: floatUp 8s ease-in-out infinite;
+    animation-delay: calc(var(--delay, 0s));
+}
+
+/* ========================================
+   CAKE ANIMATIONS - ULTRA REALISTIC
+======================================= */
+@keyframes cakeWobble {
+
+    0%,
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    25% {
+        transform: rotate(-1deg) scale(1.01);
+    }
+
+    75% {
+        transform: rotate(1deg) scale(1.01);
+    }
+}
+
+@keyframes candleFlicker {
+
+    0%,
+    100% {
+        transform: scaleY(1) scaleX(1);
+        opacity: 1;
+        filter: hue-rotate(0deg) drop-shadow(0 0 5px #ff9800);
+    }
+
+    50% {
+        transform: scaleY(0.95) scaleX(1.05);
+        opacity: 0.8;
+        filter: hue-rotate(20deg) drop-shadow(0 0 15px #ff5722);
+    }
+}
+
+@keyframes sliceFly {
+    0% {
+        transform: rotate(0deg) translateX(0);
+    }
+
+    100% {
+        transform: rotate(25deg) translateX(4rem) scale(0.9);
+    }
+}
+
+.cake-base {
+    animation: cakeWobble 3s ease-in-out infinite;
+}
+
+.candle {
+    animation: candleFlicker 2s ease-in-out infinite;
+}
+
+.cake-slice {
+    animation: sliceFly 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+/* ========================================
+   SHIMMER & GLOW EFFECTS
+======================================= */
+.shimmer {
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, hsl(var(--gradient-shimmer)), transparent);
+    transform: skewX(-25deg);
+    transition: left 0.5s;
+}
+
+.shimmer:hover::before {
+    left: 125%;
+}
+
+/* ========================================
+   BUTTON ADVANCED EFFECTS
+======================================= */
+.btn-magic {
+    @apply relative overflow-hidden font-black tracking-wide uppercase;
+}
+
+.btn-magic::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s;
+}
+
+.btn-magic:hover::before {
+    left: 100%;
+}
+
+/* ========================================
+   GIRL AVATAR ENHANCEMENTS
+======================================= */
+.girl-hair {
+    animation: hairFlow 4s ease-in-out infinite;
+}
+
+@keyframes hairFlow {
+
+    0%,
+    100% {
+        transform: rotate(0deg) scaleY(1);
+    }
+
+    50% {
+        transform: rotate(-2deg) scaleY(1.02);
+    }
+}
+
+.girl-dress {
+    animation: dressFloat 6s ease-in-out infinite;
+}
+
+@keyframes dressFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.eyes-blink {
+    animation: blink 4s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    90%,
+    100% {
+        transform: scaleY(1);
+    }
+
+    95% {
+        transform: scaleY(0.2);
+    }
+}
+
+/* ========================================
+   BALLOON PHYSICS
+======================================= */
+@keyframes balloonFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-30px) rotate(5deg);
+    }
+}
+
+.balloon {
+    animation: balloonFloat 4s ease-in-out infinite;
+}
+
+.balloon-pop {
+    animation: popExplode 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+@keyframes popExplode {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.4);
+    }
+
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+/* ========================================
+   RESPONSIVE TEXT GRADIENTS
+======================================= */
+@layer utilities {
+    .text-gradient-primary {
+        @apply bg-gradient-to-r from-rose-500 via-pink-500 to-orange-400 bg-clip-text text-transparent;
+    }
+
+    .text-gradient-gold {
+        @apply bg-gradient-to-r from-amber-400 via-yellow-400 to-orange-500 bg-clip-text text-transparent;
+    }
+
+    .drop-glow {
+        filter: drop-shadow(0 0 10px currentColor);
+    }
+}
+
+/* ========================================
+   LOADING & TRANSITION ENHANCEMENTS
+======================================= */
+.fade-in {
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   MOBILE OPTIMIZATIONS
+======================================= */
+@media (min-width: 640px) {
+    :root {
+        --glass-blur: 15px;
+    }
+
+    .text-8xl {
+        @apply text-6xl;
+    }
+
+    .text-7xl {
+        @apply text-5xl;
+    }
+}
+
+/* ========================================
+   PERFORMANCE OPTIMIZATIONS
+======================================= */
+@layer utilities {
+    .will-change-transform {
+        will-change: transform;
+    }
+
+    .reduce-motion {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ========================================
+   CUSTOM SCROLLBAR
+======================================= */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-rose-50;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gradient-to-b from-rose-400 to-pink-500 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-gradient-to-b from-rose-500 to-pink-600;
+}
+
+/* ========================================
+   NEW ADVANCED ANIMATIONS
+======================================= */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.perspective-1000 {
+    perspective: 1000px;
+}
+
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+.rotate-y-180 {
+    transform: rotateY(180deg);
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+}
+
+/* ========================================
+   NEW LAYOUT & COMPONENT STYLES
+======================================= */
+.page-wrap {
+    @apply min-h-screen flex flex-col items-center justify-between p-8 relative overflow-hidden;
+    background: radial-gradient(circle at 50% 10%, #2a1b3d, #1a1025);
+}
+
+.hero {
+    @apply text-center z-10 mt-10;
+}
+
+.title {
+    @apply text-6xl md:text-8xl font-black bg-gradient-to-r from-rose-400 via-pink-500 to-amber-400 bg-clip-text text-transparent drop-shadow-2xl mb-4;
+}
+
+.subtitle {
+    @apply text-xl text-rose-200/80 font-light tracking-wider;
+}
+
+.scene {
+    @apply flex flex-col md:flex-row items-end justify-center gap-12 w-full max-w-7xl flex-grow z-10;
+}
+
+.left-col,
+.right-col {
+    @apply flex-1 flex justify-center;
+}
+
+.center-col {
+    @apply flex-[1.5] flex flex-col items-center gap-12;
+}
+
+/* --- CHAIR & GIRL --- */
+.chair {
+    @apply relative w-48 h-64 bg-amber-800 rounded-t-3xl border-4 border-amber-950 shadow-2xl;
+}
+
+.chair::before {
+    content: '';
+    @apply absolute -bottom-10 left-4 w-4 h-10 bg-amber-900;
+}
+
+.chair::after {
+    content: '';
+    @apply absolute -bottom-10 right-4 w-4 h-10 bg-amber-900;
+}
+
+.girl-avatar {
+    @apply absolute -top-16 left-1/2 -translate-x-1/2 w-32 h-40 bg-pink-400 rounded-t-full shadow-lg;
+    /* Simple placeholder for the girl */
+}
+
+.girl-avatar::before {
+    /* Head */
+    content: '';
+    @apply absolute -top-16 left-1/2 -translate-x-1/2 w-20 h-24 bg-[#ffdbc5] rounded-full shadow-md;
+}
+
+.girl-avatar::after {
+    /* Hair */
+    content: '';
+    @apply absolute -top-18 left-1/2 -translate-x-1/2 w-24 h-28 bg-black rounded-full -z-10;
+}
+
+/* --- GAME BOX --- */
+.game-box {
+    @apply p-8 rounded-3xl text-center border border-white/10 bg-white/5 backdrop-blur-md;
+}
+
+.game-box h3 {
+    @apply text-xl font-bold text-rose-200 mb-6;
+}
+
+.balloon-area {
+    @apply relative h-40 w-full flex justify-center gap-4;
+}
+
+.balloon {
+    @apply relative w-16 h-20 cursor-pointer transition-transform;
+}
+
+.balloon-shape {
+    @apply w-full h-full bg-gradient-to-br from-pink-400 to-rose-600 rounded-[50%_50%_50%_50%_/_60%_60%_40%_40%] shadow-lg;
+}
+
+.balloon-shape::after {
+    content: '';
+    @apply absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-1 h-8 bg-white/50;
+}
+
+/* --- TEDDY BEAR --- */
+.teddy-bear {
+    @apply relative w-64 h-64;
+    animation: float 6s ease-in-out infinite;
+}
+
+.teddy-heart {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-lg bg-red-500 p-2 rounded-full shadow-lg rotate-12;
+}
+
+/* --- PARTICLES --- */
+.particles {
+    position: absolute;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: gold;
+    border-radius: 50%;
+    animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(var(--dx), var(--dy)) scale(0);
+        opacity: 0;
+    }
+}
+
+.slice-overlay {
+    @apply absolute top-0 left-0 w-full text-center text-2xl font-bold text-rose-600 opacity-0 transition-opacity duration-500;
+}
+
+.slice-overlay.visible {
+    @apply opacity-100 -translate-y-10;
 }

@@ -1,0 +1,740 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #FFC0CB 0%, #DDA0DD 50%, #A020F0 100%);
+    color: #4B0082;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 0 120px rgba(255, 255, 255, 0.6);
+}
+
+.title {
+    font-size: 4rem;
+    color: #FF69B4;
+    animation: glow 1.5s ease-in-out infinite alternate, rotateSlight 4s ease-in-out infinite;
+    margin-bottom: 25px;
+    text-shadow: 0 0 20px #FF1493, 0 0 30px #FF00FF;
+}
+
+.typing {
+    font-size: 1.4rem;
+    max-width: 750px;
+    overflow: hidden;
+    border-right: 0.15em solid #FF69B4;
+    white-space: nowrap;
+    margin: 0 auto 35px;
+    letter-spacing: 0.12em;
+    animation: typing 7s steps(60, end), blink-caret 0.7s step-end infinite, colorShift 2.5s infinite alternate;
+}
+
+.button {
+    padding: 18px 45px;
+    font-size: 1.4rem;
+    background: linear-gradient(45deg, #FF69B4, #A020F0);
+    color: white;
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    transition: transform 0.5s, box-shadow 0.5s;
+    box-shadow: 0 8px 20px rgba(160, 32, 240, 0.7);
+}
+
+.button:hover {
+    transform: scale(1.2) rotate(7deg);
+    box-shadow: 0 10px 25px rgba(255, 20, 147, 0.9);
+}
+
+.revealMessage {
+    font-size: 1.7rem;
+    color: #FF1493;
+    animation: fadeIn 3s ease-in, scaleIn 1.2s ease-out;
+    max-width: 750px;
+    margin: 35px auto;
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+.giftSection {
+    margin: 50px 0;
+    position: relative;
+}
+
+/* Gift Box CSS (adapted from pure CSS example) */
+.gift {
+    position: relative;
+    width: 150px;
+    height: 100px;
+    background: #FF69B4;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: 0.6s ease-in-out;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.gift_top {
+    position: absolute;
+    top: -50px;
+    left: 0;
+    width: 150px;
+    height: 50px;
+    background: #FF69B4;
+    transition: top 0.6s ease-in-out;
+}
+
+.open .gift_top {
+    top: -100px;
+    transform: rotate(-5deg);
+}
+
+.ribbon_right,
+.ribbon_left {
+    position: absolute;
+    top: -20px;
+    width: 40px;
+    height: 40px;
+    background: #FFD700;
+    border-radius: 50%;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.ribbon_right {
+    right: 20px;
+}
+
+.ribbon_left {
+    left: 20px;
+}
+
+.gift_box_top {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 10px;
+    background: #DDA0DD;
+}
+
+.gift_ribbon_left {
+    position: absolute;
+    left: 50%;
+    top: -30px;
+    width: 20px;
+    height: 60px;
+    background: #FFD700;
+    transform: translateX(-50%);
+}
+
+.gift_ribbon_center {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 20px;
+    height: 100px;
+    background: #FFD700;
+    transform: translateX(-50%);
+}
+
+.gift_box_bottom_top {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 10px;
+    background: #DDA0DD;
+}
+
+.gift_box_bottom {
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    width: 150px;
+    height: 50px;
+    background: #FF69B4;
+}
+
+.gift_box_bottom_ribbon {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #FFD700;
+    border-radius: 50%;
+    animation: rotateRibbon 2s infinite alternate;
+}
+
+#ribbon1 {
+    top: 10px;
+    left: 10px;
+}
+
+#ribbon2 {
+    top: 10px;
+    right: 10px;
+    animation-delay: 0.2s;
+}
+
+#ribbon3 {
+    bottom: 10px;
+    left: 10px;
+    animation-delay: 0.4s;
+}
+
+#ribbon4 {
+    bottom: 10px;
+    right: 10px;
+    animation-delay: 0.6s;
+}
+
+.giftcard {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    color: white;
+    background: #A020F0;
+    padding: 10px;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.6s;
+}
+
+.open .giftcard {
+    opacity: 1;
+    animation: fadeIn 1s ease-in;
+}
+
+/* Cake CSS (enhanced with multi-candles and flames) */
+.cakeSection {
+    margin: 50px 0;
+}
+
+.cakeWrapper {
+    position: relative;
+    margin: 0 auto;
+}
+
+.cake {
+    height: 200px;
+    width: 200px;
+    position: relative;
+    border-radius: 100% / 50%;
+    background: #864313;
+    border-bottom: 5px solid #5C2C06;
+}
+
+.cake::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    border-radius: 50%;
+    background: #864313;
+    border-bottom: 10px solid #5C2C06;
+    z-index: 10;
+}
+
+.cake::after {
+    content: '';
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    height: 100px;
+    border-radius: 50%;
+    border-top-right-radius: 25%;
+    border-top-left-radius: 25%;
+    background: #864313;
+    box-shadow: 0 50px 0 #FFFFCC, 0 100px 0 #864313;
+}
+
+.candles {
+    position: absolute;
+    z-index: 20;
+    height: 100px;
+    width: 25px;
+    bottom: 150px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    border-radius: 50% / 5%;
+    background: #FFCC00;
+    box-shadow: -35px 50px 0 0 #77DD77, 35px 50px 0 0 #FF6961, -70px 25px 0 -3px #FFB347, 70px 25px 0 -3px #779ECB, -105px 20px 0 -1px #B19CD9, 105px 20px 0 -1px #A5D3CA;
+    animation: candles 10s 2s infinite alternate;
+}
+
+.candles::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    border-radius: 50%;
+    background: darken(#FFCC00, 10%);
+    box-shadow: -35px 50px 0 0 darken(#77DD77, 10%), 35px 50px 0 0 darken(#FF6961, 10%), -70px 25px 0 -3px darken(#FFB347, 10%), 70px 25px 0 -3px darken(#779ECB, 10%), -105px 20px 0 -1px darken(#B19CD9, 10%), 105px 20px 0 -1px darken(#A5D3CA, 10%);
+}
+
+.candles::after {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 50% / 40%;
+    border-top-right-radius: 50% 60%;
+    border-top-left-radius: 50% 60%;
+    background: #E29822;
+    height: 25px;
+    width: 20px;
+    animation: flames 0.75s infinite alternate;
+    box-shadow: 0 0 0 1px lighten(#E29822, 10%), -35px 50px 1px 0 #E29822, 35px 50px 1px 0 #E29822, -70px 25px 1px 0 #E29822, 70px 25px 1px 0 #E29822, -105px 20px 1px 0 #E29822, 105px 20px 1px 0 #E29822;
+}
+
+.cut .cake {
+    animation: cutCake 1.5s forwards;
+}
+
+.cakeButton {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 25px;
+    background: #FF69B4;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 5px 12px rgba(255, 105, 180, 0.6);
+}
+
+.cakeMessage {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.3rem;
+    color: #FF1493;
+    animation: fadeIn 1.2s ease-in;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.taskSection {
+    margin-top: 60px;
+    padding: 35px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 35px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    max-width: 850px;
+}
+
+.hearts {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.heart {
+    font-size: 3rem;
+    cursor: pointer;
+    transition: transform 0.5s;
+    animation: float 2.5s infinite ease-in-out;
+}
+
+.heart:hover {
+    transform: scale(1.4) rotate(12deg);
+}
+
+.clicked {
+    color: #FF0000;
+    animation: pulse 1s infinite, explodeHeart 0.6s forwards;
+}
+
+.note {
+    font-size: 1.3rem;
+    color: #FF69B4;
+    animation: fadeIn 1.3s ease-in, slideUp 0.9s ease-out;
+    margin: 18px 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.footer {
+    position: absolute;
+    bottom: 25px;
+    font-size: 1.1rem;
+    color: #4B0082;
+    animation: fadeIn 4s ease-in;
+}
+
+/* Enhanced Confetti & Fireworks */
+.confetti {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.confetti::before,
+.confetti::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: #FF69B4;
+    animation: confetti-fall 3.5s linear infinite, fireworksBurst 1.5s infinite alternate;
+}
+
+.confetti::before {
+    left: 40%;
+    animation-delay: 0.3s;
+    background: #FFD700;
+}
+
+.confetti::after {
+    left: 60%;
+    animation-delay: 1.2s;
+    background: #00FF00;
+}
+
+.fireworks .confetti::before,
+.fireworks .confetti::after {
+    animation: fireworksExplode 2s linear infinite;
+}
+
+.confetti {
+    --confetti-count: 150;
+}
+
+/* Balloons */
+.balloons {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.balloon {
+    position: absolute;
+    bottom: 0;
+    width: 50px;
+    height: 75px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    animation: floatUp linear infinite, sway 3s ease-in-out infinite alternate;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    width: 3px;
+    height: 60px;
+    background: #CCC;
+    transform: translateX(-50%);
+}
+
+.balloonColor0 {
+    background: #FF69B4;
+}
+
+.balloonColor1 {
+    background: #FFD700;
+}
+
+.balloonColor2 {
+    background: #00FF00;
+}
+
+.balloonColor3 {
+    background: #00BFFF;
+}
+
+.balloonColor4 {
+    background: #FF00FF;
+}
+
+.balloonColor5 {
+    background: #FFFFFF;
+}
+
+/* Floating Hearts & Stars */
+.floatingHearts,
+.floatingStars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.floatingHeart {
+    position: absolute;
+    bottom: -60px;
+    font-size: 2rem;
+    animation: floatUp 7s linear infinite, sway 2.5s ease-in-out infinite alternate;
+}
+
+.star {
+    position: absolute;
+    font-size: 1.8rem;
+    color: #FFD700;
+    animation: twinkle 1.5s infinite alternate;
+}
+
+/* Keyframes (expanded for more interest) */
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: #FF69B4;
+    }
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 15px #FF69B4;
+    }
+
+    to {
+        text-shadow: 0 0 30px #FF1493;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.4);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-100%) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(200vh) rotate(1440deg);
+        opacity: 0;
+    }
+}
+
+@keyframes fireworksBurst {
+    0% {
+        box-shadow: 0 0 0 rgba(255, 255, 0, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 30px rgba(255, 255, 0, 1);
+    }
+}
+
+@keyframes fireworksExplode {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(120vh);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-120vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+@keyframes sway {
+    0% {
+        transform: translateX(-15px);
+    }
+
+    100% {
+        transform: translateX(15px);
+    }
+}
+
+@keyframes flames {
+    0% {
+        height: 22px;
+        transform: rotate(0.5deg);
+        opacity: 0.8;
+    }
+
+    100% {
+        height: 25px;
+        transform: rotate(-0.5deg);
+        border-radius: 50% / 30%;
+        border-top-right-radius: 50% 60%;
+        border-top-left-radius: 50% 60%;
+        opacity: 1;
+    }
+}
+
+@keyframes candles {
+    0% {
+        height: 100px;
+        border-radius: 50% / 5%;
+    }
+
+    100% {
+        height: 20px;
+        border-radius: 50% / 25%;
+    }
+}
+
+@keyframes cutCake {
+    0% {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    100% {
+        clip-path: polygon(0 0, 40% 0, 40% 100%, 0 100%);
+    }
+}
+
+@keyframes colorShift {
+    0% {
+        color: #FF69B4;
+    }
+
+    100% {
+        color: #A020F0;
+    }
+}
+
+@keyframes rotateSlight {
+    0% {
+        transform: rotate(-3deg);
+    }
+
+    50% {
+        transform: rotate(3deg);
+    }
+
+    100% {
+        transform: rotate(-3deg);
+    }
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes explodeHeart {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.6) rotate(20deg);
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(25px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes twinkle {
+    0% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes rotateRibbon {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(10deg);
+    }
+}
