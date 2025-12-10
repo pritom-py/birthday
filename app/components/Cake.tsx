@@ -62,15 +62,32 @@ export default function Cake({ onCut, isCut }: CakeProps) {
                 ))}
             </div>
 
-            {/* Cut Animation Layer */}
+            {/* FLYING SLICE ANIMATION */}
+            {isCut && (
+                <motion.div
+                    initial={{ x: 0, y: 0, opacity: 1 }}
+                    animate={{ x: 50, y: -50, rotate: 20, opacity: 0 }}
+                    transition={{ duration: 1.5, ease: "anticipate" }}
+                    className="absolute bottom-24 z-50 pointer-events-none"
+                >
+                    {/* A Triangle Slice */}
+                    <div className="w-0 h-0 
+                        border-l-[20px] border-l-transparent
+                        border-b-[40px] border-b-rose-400
+                        border-r-[20px] border-r-transparent"
+                    />
+                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-8 bg-pink-100 rounded-full blur-[2px]" />
+                </motion.div>
+            )}
+
+            {/* Celebration Text */}
             {isCut && (
                 <motion.div
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="absolute z-50 text-6xl drop-shadow-2xl"
-                    style={{ top: '30%' }}
+                    className="absolute top-10 z-50 text-4xl font-black text-rose-600 drop-shadow-white whitespace-nowrap"
                 >
-                    🍰
+                    Tada! 🎉
                 </motion.div>
             )}
         </div>
