@@ -2,22 +2,13 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { sound } from '../utils/sound';
 
 // ... (Top of file remains)
 
 export default function DreamScene() {
-    // Audio refs
-    const bonkSound = useRef<HTMLAudioElement | null>(null);
-    const crySound = useRef<HTMLAudioElement | null>(null);
-    const kickSound = useRef<HTMLAudioElement | null>(null);
-    const wooshSound = useRef<HTMLAudioElement | null>(null);
+    // Audio refs - Removed in favor of sound utility
 
-    useEffect(() => {
-        bonkSound.current = new Audio('/bonk.mp3');
-        crySound.current = new Audio('/funny-cry.mp3');
-        kickSound.current = new Audio('/kick.mp3'); // Need to map or use generic
-        wooshSound.current = new Audio('/woosh.mp3');
-    }, []);
 
     const [action, setAction] = useState<'idle' | 'punch' | 'kick'>('idle');
     const [boyState, setBoyState] = useState<'idle' | 'crying' | 'flying'>('idle');
@@ -37,17 +28,11 @@ export default function DreamScene() {
 
             // Audio & Impact
             setTimeout(() => {
-                if (bonkSound.current) {
-                    bonkSound.current.currentTime = 0;
-                    bonkSound.current.play().catch(() => { });
-                }
+                sound.playBonk();
                 setBoyState('crying');
 
                 setTimeout(() => {
-                    if (crySound.current) {
-                        crySound.current.currentTime = 0;
-                        crySound.current.play().catch(() => { });
-                    }
+                    sound.playFunnyCry();
                 }, 100);
 
             }, 300); // Sync with punch arm
@@ -71,8 +56,8 @@ export default function DreamScene() {
 
         // 1. Kick Hit Time
         setTimeout(() => {
-            if (kickSound.current) kickSound.current.play().catch(() => { }); // Optional sound
-            if (wooshSound.current) wooshSound.current.play().catch(() => { });
+            sound.playKick();
+            sound.playWoosh();
 
             setBoyState('flying');
         }, 400);

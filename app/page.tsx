@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./globals.css";
+import { sound } from "./utils/sound";
 
 // Components
 import ParticleBackground from "./components/ParticleBackground";
@@ -24,14 +25,7 @@ export default function BirthdayPage() {
   const [showDream, setShowDream] = useState(false);
 
   // Audio
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const clapRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-
-  useEffect(() => {
-    // Initialize Clap sound
-    clapRef.current = new Audio('/clap.mp3');
-  }, []);
 
   const handleCeremony = useCallback(async () => {
     if (cakeCut || isCutting) return;
@@ -46,15 +40,9 @@ export default function BirthdayPage() {
     setCakeCut(true);
 
     // 4. Play Sounds
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.volume = 0.6;
-      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => { });
-    }
-    if (clapRef.current) {
-      clapRef.current.volume = 1.0;
-      clapRef.current.play().catch(() => { });
-    }
+    setIsPlaying(true);
+    sound.playBirthdayTune();
+    sound.playClap();
 
     // 5. Stop Cutting Animation after a bit
     setTimeout(() => setIsCutting(false), 1000);
@@ -64,7 +52,6 @@ export default function BirthdayPage() {
   return (
     <main className="page-wrap bg-[#1a1025] relative overflow-hidden min-h-screen font-sans">
       <ParticleBackground />
-      <audio ref={audioRef} src="/happy-birthday-short.mp3" loop preload="auto" />
 
       {/* HEADER */}
       <motion.header className="hero flex flex-col items-center py-4 md:py-8 z-20 relative px-4" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
@@ -197,7 +184,7 @@ export default function BirthdayPage() {
                     onClick={() => setShowDream(true)}
                     className="px-6 py-3 bg-white/10 backdrop-blur-md rounded-xl text-rose-200 font-bold border border-rose-200/30 hover:bg-white/20 transition-all flex flex-col items-center gap-1"
                   >
-                    <span>Click for see you dream in realI know your dream is.. 💭</span>
+                    <span>Click for see you dream in real 💭</span>
                     <span className="text-xs opacity-60">(Click to see!)</span>
                   </motion.button>
                 ) : (

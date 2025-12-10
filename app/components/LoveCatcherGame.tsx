@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { sound } from '../utils/sound';
 
 interface GameProps {
     onWin: () => void;
@@ -27,16 +28,8 @@ export default function LoveCatcherGame({ onWin }: GameProps) {
     const scoreRef = useRef(0);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    // Audio Refs
-    const catchSoundRef = useRef<HTMLAudioElement | null>(null);
-    const winSoundRef = useRef<HTMLAudioElement | null>(null);
-    const bgMusicRef = useRef<HTMLAudioElement | null>(null);
+    // Audio Refs - Removed in favor of sound utility
 
-    // Initialize Audio
-    useEffect(() => {
-        catchSoundRef.current = new Audio('/pop.mp3'); // Fallback or placeholder, ensure file exists or use synth
-        winSoundRef.current = new Audio('/win.mp3');
-    }, []);
 
     const startGame = () => {
         setIsPlaying(true);
@@ -86,11 +79,11 @@ export default function LoveCatcherGame({ onWin }: GameProps) {
                 // Caught!
                 if (item.type === 'bomb') {
                     scoreRef.current = Math.max(0, scoreRef.current - 20);
-                    // Shake effect?
+                    sound.playBonk();
                 } else {
                     scoreRef.current += (item.type === 'gift' ? 20 : 10);
                     // Play sound (debounced ideally)
-                    // catchSoundRef.current?.play().catch(() => {}); 
+                    sound.playPop();
                 }
                 return false; // Remove item
             }
@@ -105,7 +98,7 @@ export default function LoveCatcherGame({ onWin }: GameProps) {
         setIsPlaying(false);
         cancelAnimationFrame(requestRef.current);
         onWin();
-        // winSoundRef.current?.play().catch(() => {});
+        sound.playWin();
     };
 
     const handleMouseMove = (e: React.MouseEvent | React.TouchEvent) => {
