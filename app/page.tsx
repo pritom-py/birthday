@@ -67,18 +67,20 @@ export default function BirthdayPage() {
       <audio ref={audioRef} src="/happy-birthday-short.mp3" loop preload="auto" />
 
       {/* HEADER */}
-      <motion.header className="hero flex flex-col items-center py-4 md:py-8 z-20 relative" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="title text-4xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-500 to-red-500 drop-shadow-lg font-serif text-center px-4">
+      <motion.header className="hero flex flex-col items-center py-4 md:py-8 z-20 relative px-4" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
+        <h1 className="title text-3xl sm:text-4xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-500 to-red-500 drop-shadow-lg font-serif text-center leading-tight">
           Happy Birthday, Anu 💖
         </h1>
         <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 mt-2">
-          <p className="subtitle text-rose-200/80 tracking-widest text-xs md:text-sm uppercase bg-black/30 px-3 py-1 rounded-full">A magical surprise just for you</p>
+          <p className="subtitle text-rose-200/80 tracking-widest text-[10px] sm:text-xs md:text-sm uppercase bg-black/30 px-3 py-1 rounded-full backdrop-blur-sm">
+            A magical surprise just for you
+          </p>
           <AudioVisualizer isPlaying={isPlaying} />
         </div>
       </motion.header>
 
       {/* MAIN CONTENT AREA */}
-      <div className="flex-grow w-full max-w-7xl mx-auto flex items-center justify-center z-10 p-2 md:p-4 relative min-h-[500px] md:min-h-[600px]">
+      <div className="flex-grow w-full max-w-7xl mx-auto flex items-center justify-center z-10 p-2 md:p-4 relative min-h-[400px] md:min-h-[600px] overflow-visible">
         <AnimatePresence mode="wait">
 
           {/* STEP 0: CEREMONY (Cake & Girl) */}
@@ -88,46 +90,48 @@ export default function BirthdayPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="scene w-full flex flex-row items-end justify-center gap-0 md:gap-4 pb-20 md:pb-0 scale-75 md:scale-100 origin-top h-[400px] md:h-auto"
+              className="scene w-full flex flex-row items-end justify-center gap-0 scale-[0.65] sm:scale-75 md:scale-100 origin-center h-full"
             >
 
               {/* Girl Column (Left) */}
-              <div className="z-20 -mr-16 md:-mr-10 mb-[-10px]">
+              <div className="z-20 -mr-12 sm:-mr-16 md:-mr-10 mb-[-10px] relative">
+                {/* Mobile Highlight Circle behind girl/cake to focus attention? Optional. */}
                 <motion.div
                   initial={{ x: -50, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: 0.2 }}
-                  onClick={handleCeremony} // Clicking girl also triggers it
-                  className="cursor-pointer"
+                  onClick={handleCeremony}
+                  className="cursor-pointer hover:scale-105 transition-transform"
                 >
                   <Girl isCutting={isCutting} hasCut={cakeCut} />
                 </motion.div>
               </div>
 
               {/* Cake Column (Right) */}
-              <div className="flex flex-col items-center gap-8 relative z-10 w-64">
+              <div className="flex flex-col items-center gap-8 relative z-10 w-48 sm:w-64">
                 {/* Floating Click Hint */}
                 {!cakeCut && !isCutting && (
                   <motion.div
-                    className="absolute -top-24 left-1/2 -translate-x-1/2 bg-white text-rose-600 font-bold px-4 py-2 rounded-xl arrow-bottom shadow-xl whitespace-nowrap z-50 animate-bounce pointer-events-none"
+                    className="absolute -top-20 left-1/2 -translate-x-1/2 bg-white/90 text-rose-600 font-bold px-3 py-1 sm:px-4 sm:py-2 rounded-xl arrow-bottom shadow-xl whitespace-nowrap z-50 animate-bounce pointer-events-none text-xs sm:text-base backdrop-blur-sm"
                   >
                     Tap us! 👇
                   </motion.div>
                 )}
 
-                <div className="relative group cursor-pointer" onClick={handleCeremony}>
+                <div className="relative group cursor-pointer hover:scale-105 transition-transform" onClick={handleCeremony}>
                   <Cake isCut={cakeCut} />
                 </div>
 
-                {/* Button - Absolute on Mobile to avoid layout shift? No, flex is fine if height fixed. */}
-                <div className="absolute top-full mt-4 left-1/2 -translate-x-1/2 w-max">
+                {/* Button */}
+                <div className="absolute top-full mt-4 left-1/2 -translate-x-1/2 w-max z-50">
                   {cakeCut && (
                     <motion.button
-                      initial={{ scale: 0 }} animate={{ scale: 1 }}
+                      initial={{ scale: 0, y: 20 }}
+                      animate={{ scale: 1, y: 0 }}
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => setStep(1)}
-                      className="px-8 py-3 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full font-bold shadow-[0_0_20px_rgba(52,211,153,0.6)] text-white border-2 border-white/50 text-lg uppercase tracking-wide flex items-center gap-2"
+                      className="px-6 py-2 sm:px-8 sm:py-3 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full font-bold shadow-[0_0_20px_rgba(52,211,153,0.6)] text-white border-2 border-white/50 text-base sm:text-lg uppercase tracking-wide flex items-center gap-2 animate-pulse"
                     >
                       <span>Play Game!</span> 🎮
                     </motion.button>
@@ -193,7 +197,7 @@ export default function BirthdayPage() {
                     onClick={() => setShowDream(true)}
                     className="px-6 py-3 bg-white/10 backdrop-blur-md rounded-xl text-rose-200 font-bold border border-rose-200/30 hover:bg-white/20 transition-all flex flex-col items-center gap-1"
                   >
-                    <span>I know your dream is... 💭</span>
+                    <span>Click for see you dream in realI know your dream is.. 💭</span>
                     <span className="text-xs opacity-60">(Click to see!)</span>
                   </motion.button>
                 ) : (
